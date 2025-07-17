@@ -1,30 +1,101 @@
-function addTask() {
-  const input = document.getElementById("task-input");
-  const taskText = input.value.trim();
+const express = require("express")
+const mongodb = require("mongodb")
+const mongoose = require("mongoose")
+const cors = require("cors")
 
-  if (taskText === "") {
-    alert("Please enter a task.");
-    return;
+const app = express();
+app.use(cors())
+app.use(express.json())
+
+mongoose.connect('mongodb:localhost://27017/list')
+.then(()=>{
+  console.log("Mongodb is connected");
+})
+.catch((err)=>{
+  console.log("Error is occured",err);
+})
+
+const schema = new mongoose.scheme({
+  name:{
+    type:String,
+    required:true
   }
+})
+const collection  = new mongoose.model(schema);
 
-  const li = document.createElement("li");
-  li.textContent = taskText;
+app.get('/', aysnc(req , res) => {
+  try{
+    const result  = await collection.find()
+    res.send(result)
+    console.log("Data is fetched");
+  }
+  catch(err){
+    res.send("Error occured")
+    console.log("Error occured",err); 
+  }
+})
 
-  // Toggle complete on click
-  li.addEventListener("click", function () {
-    li.classList.toggle("completed");
-  });
+app.post('/add-item',async (req,res)=>{
+  try{
+  const item = await collection.create({name:req.body.name})
+  console.log("data is added to database sucessfully");
+  }
+  catch(err){ 
+    console.log("error occured");
+    res.send("error occured",err);
 
-  // Delete button
-  const deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "Delete";
-  deleteBtn.addEventListener("click", function (e) {
-    e.stopPropagation(); // Don't trigger li click
-    li.remove();
-  });
+  }
+})
+app.put('/edit-item',async(res,req)=>{
+  const id = req.body.id
+  const name = req.body.name
+  if(!id || !name){
+    res.send("No data found"); 
+  }
+  try{
+    const update = await collection.findByIdAndUpdate(id,{name},{new : true})
+    console.log("updated sucessfully")
+  }
+  catch(err){
+    console.log("Error occured");
+    res.send(err);
+  }
+})
+app.delete('/delete-item/:id',async(req, res)=>{
+  const id = req.params.id;
+  try{
+    const delet = await collection.findByIdAndDelete(id)
+    if(!delet){
+      console.log("Item found")
+    }
+    else{
+      console.log("Deleted sucessfully");
+      res.send("deleted sucessfully")
+    }
+  }
+  catch(err){
+    console.log("Error occured")
+    res.send(err);
+  }
+})
 
-  li.appendChild(deleteBtn);
 
-  document.getElementById("task-list").appendChild(li);
-  input.value = "";
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.listen(3000,()=>{
+  console.log("Server is running on port 300");
+})
