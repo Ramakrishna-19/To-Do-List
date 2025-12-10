@@ -1,49 +1,81 @@
-# To-Do-List
-📝 To-Do List Application
-This is a simple and responsive To-Do List web application built using HTML, CSS, and JavaScript. It allows users to manage daily tasks efficiently by adding, marking, and deleting to-dos.
+<h1>To-Do-List App (MERN Stack)</h1>
+
+A simple and efficient To-Do List application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). This project allows users to manage daily tasks with features like adding, editing, marking as complete, and deleting tasks. It is designed with a clean UI and a fully functional REST API.
 
 🚀 Features
-✅ Add new tasks
 
-✏️ Mark tasks as completed
+➕ Add new tasks
 
-🗑️ Delete individual tasks
+✏️ Edit existing tasks
 
-💾 Automatically saves your tasks using local storage
+✔️ Mark tasks as completed
 
-📱 Responsive design (works on both desktop and mobile)
+🗑️ Delete tasks
 
-💡 How to Use
-Enter a task in the input field and click "Add".
+📦 Persistent storage using MongoDB
 
-Click on a task to mark it as completed.
+🔗 RESTful API (CRUD operations)
 
-Click the trash icon to remove a task.
-
-Your tasks are saved in your browser and remain even after refreshing the page.
+🎨 Responsive and clean React UI
 
 🛠️ Tech Stack
-HTML5
+* Frontend
 
-CSS3
+React.js
 
-JavaScript (ES6)
+CSS 
 
-LocalStorage API
+*Backend
+
+Node.js
+
+Express.js
+
+MongoDB + Mongoose
 
 📁 Project Structure
-pgsql
-Copy
-Edit
-📦 to-do-list
- ┣ 📄 index.html
- ┣ 📄 style.css
- ┗ 📄 script.js
-📸 Preview
+/client
+  ├── src
+  │   ├── components
+  │   ├── pages
+  │   ├── App.js
+  │   └── index.js
 
-📌 Future Improvements
-Add task filtering (all/completed/pending)
+/server
+  ├── models
+  ├── routes
+  ├── controllers
+  ├── server.js
 
-Add due dates and reminders
+README.md
+
+🔌 API Endpoints
+Base URL: http://localhost:5000/api/tasks
+Method	Endpoint	Description
+GET	/	Get all tasks
+POST	/	Create a new task
+PUT	/:id	Update a task
+DELETE	/:id	Delete a task
+🗄️ Environment Variables
+
+Create a .env file in /server:
+
+MONGO_URI='mongodb:localhost://27017/list'
+PORT=5000
+
+📚 Future Enhancements
+
+User authentication (JWT)
+
+Drag-and-drop tasks
+
+Dark mode UI
+
+Task categories & deadlines
+
+🤝 Contributing
+
+Feel free to submit issues or pull requests to enhance the project!
+
 
 Sync with cloud backend for cross-device support
