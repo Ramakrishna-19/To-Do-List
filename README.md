@@ -25,8 +25,6 @@ A simple and efficient To-Do List application built using the MERN stack (MongoD
       Express.js
       MongoDB + Mongoose
 
-README.md
-
 🔌 API Endpoints
 
     Base URL: http://localhost:5000/api/tasks
